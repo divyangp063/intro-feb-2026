@@ -9,4 +9,6 @@
 
 ## Visual Studio [[10.90.20.20 - Visual Studio]]
 
+- `Ctrl+.` - To be able to generate Interface or move methods in their own files
+
 ## Other
