@@ -1,6 +1,9 @@
+using Scalar.Aspire;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 // Infrastructure - "backing services" - what is my app going to need in the environment in which it runs.
+var scalar = builder.AddScalarApiReference(); // Will give us a UI for documentation
 
 // - database - postgres (great support for relational data (rows and columns) and for documents (like mongodb))
 // - identity provider (later)
@@ -13,6 +16,8 @@ var mmDb = postGres.AddDatabase("db-mm");
 var mmApi = builder.AddProject<Projects.MuddiestMoment_Api>("mm-api")
     .WithReference(mmDb)
     .WaitFor(mmDb);
+
+scalar.WithApiReference(mmApi);
 
 var gateway = builder.AddProject<Projects.Gateway_Api>("gateway")
     .WithReference(mmApi)
