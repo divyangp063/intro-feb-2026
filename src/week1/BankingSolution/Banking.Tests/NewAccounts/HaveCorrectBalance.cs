@@ -1,5 +1,6 @@
 ﻿
-using Backing.Domain;
+
+using Banking.Domain;
 
 namespace Banking.Tests.NewAccounts;
 
@@ -8,12 +9,12 @@ public class HaveCorrectBalance
     [Fact]
     public void BalanceIsCorrect()
     {
-        // WTCYWYH - Write The Code You With You Had
+        // WTCYWYH - Write the code you wish you had.
         var myAccount = new Account();
 
-        decimal openingBalance = myAccount.GetBalance();
-
-        // Fails on the Asset - Meaningfully failing test. We want to create these kind of tests.
-        Assert.Equal(5000M, openingBalance);
+        decimal openingBalace = myAccount.GetBalance();
+        
+        // Fails on the Assert.
+        Assert.Equal(5000M, openingBalace);
     }
 }
