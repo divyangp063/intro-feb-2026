@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Backing.Domain/Backing.Domain.csproj" />
+  <Project Path="Banking.Tests/Banking.Tests.csproj" />
+</Solution>
