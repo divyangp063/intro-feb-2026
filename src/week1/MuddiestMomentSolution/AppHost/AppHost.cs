@@ -23,5 +23,8 @@ var gateway = builder.AddProject<Projects.Gateway_Api>("gateway")
     .WithReference(mmApi)
     .WaitFor(mmApi);
 
+var instructorApi = builder.AddProject<Projects.Instructor_Api>("instructor-api");
+
+scalar.WithApiReference(instructorApi);
 builder.Build().Run();
 
