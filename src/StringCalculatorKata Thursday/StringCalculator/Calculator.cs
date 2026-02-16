@@ -9,6 +9,11 @@ public class Calculator
         }
         else
         {
+            // or you can do:
+            // return numbers - "1,2,3,4"
+            // .Split(delimiters) - ["1", "2", "3", "4"]
+            // .Select(int.Parse) - [1, 2, 3, 4]
+            // .Sum(); - 1 + 2 + 3 + 4
             char[] delimiters = { ',', '\n', '/', '#' };
             string[] listOfNumbersString = numbers.Split(delimiters);
             var result = 0;

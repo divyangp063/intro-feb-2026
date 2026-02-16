@@ -7,10 +7,21 @@ public class Account
 {
     private decimal _currentBalance = 5000M;
 
-    public void Deposit(decimal amountToDeposit)
+    private ICalculateBonusesForAccounts _calculateBonusesForAccounts;
+
+    public Account(ICalculateBonusesForAccounts calc)
     {
-  
-        _currentBalance += amountToDeposit;
+        _calculateBonusesForAccounts = calc;
+    }
+
+    public void Deposit(TransactionAmount amountToDeposit)
+    {
+        // if the amountToDeposit is 0 or less, throw an exception - abnormal end.
+        //var bonusCalculator = new StandardBonusCalculator(); // this is a real, concrete thing. 
+        // "new is glue"
+        // If and only if the bonus calculator throws an exception - send a notification to some other service,
+        // Add zero to the balance - and send the notification
+        _currentBalance += amountToDeposit + _calculateBonusesForAccounts.CalculateBonusForDeposit(_currentBalance, amountToDeposit);
     }
 
     public decimal GetBalance()
@@ -20,21 +31,25 @@ public class Account
     }
 
     // Primitive Obsession 
-    public void Withdraw(decimal amountToWithdraw)
+    // You can call this with any decimal value and it will work. 
+    public void Withdraw(TransactionAmount amountToWithdraw)
     {
-        if (IsAllowedTransactionAmount(amountToWithdraw))
+
+        if (WouldCauseOverdraft(amountToWithdraw))
         {
-            if (amountToWithdraw <= _currentBalance)
-            {
-
-                _currentBalance -= amountToWithdraw;
-            }
-            
+            // exit with an exception - abnormal end.
+            throw new OverdraftNotAllowedException();
         }
+        _currentBalance -= amountToWithdraw;
+
+
     }
 
-    private  bool IsAllowedTransactionAmount(decimal amountToWithdraw)
+    private bool WouldCauseOverdraft(decimal amountToWithdraw)
     {
-        return amountToWithdraw > 0;
+        return amountToWithdraw > _currentBalance;
     }
+
 }
+
+public class OverdraftNotAllowedException : ArgumentOutOfRangeException { }
