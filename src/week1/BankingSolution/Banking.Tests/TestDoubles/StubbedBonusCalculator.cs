@@ -17,3 +17,11 @@ public class StubbedBonusCalculator : ICalculateBonusesForAccounts
         }
     }
 }
+
+public class SuperExplodingBonusCalculator : ICalculateBonusesForAccounts
+{
+    public decimal CalculateBonusForDeposit(decimal currentBalance, decimal depositAmount)
+    {
+        throw new Exception();
+    }
+}
