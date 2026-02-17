@@ -1,6 +1,7 @@
 ﻿
 using Alba;
 using MuddiestMoment.Api.Student.Endpoints;
+using Testcontainers.PostgreSql;
 
 namespace MuddiestMoment.Tests.Student;
 
@@ -9,7 +10,13 @@ public class AddsMoment
     [Fact]
     public async Task CanAddAMoment()
     {
-        var host = await AlbaHost.For<Program>();
+        var postgreSqlContainer = new PostgreSqlBuilder("postgres:17.5").Build();
+        await postgreSqlContainer.StartAsync();
+
+        var host = await AlbaHost.For<Program>(config =>
+        {
+            config.UseSetting("ConnectionStrings:db-mm", postgreSqlContainer.GetConnectionString());
+        });
 
         // Scenario 
         // Start up the API
