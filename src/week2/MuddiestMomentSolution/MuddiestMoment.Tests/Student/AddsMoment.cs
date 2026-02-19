@@ -15,6 +15,7 @@ public class AddsMoment
 
         var host = await AlbaHost.For<Program>(config =>
         {
+            // Example 1 of the "gray box testing" thing
             config.UseSetting("ConnectionStrings:db-mm", postgreSqlContainer.GetConnectionString());
         });
 

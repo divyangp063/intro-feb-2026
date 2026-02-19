@@ -3,7 +3,7 @@
 @import 'tailwindcss';
 @plugin "daisyui" {
   themes:
-    sunset --default,
-    caramellatte --prefersdark,
+    caramellatte --default,
+    sunset --prefersdark,
     cupcake;
 }
